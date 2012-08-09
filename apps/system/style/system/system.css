@@ -186,7 +186,7 @@ iframe.backgroundWindow {
   height: 100%;
   border: 0;
   transform: translateY(0);
-  -moz-transition: -moz-transform 0.2s ease;
+  -moz-transition: visibility 0.2s ease, -moz-transform 0.2s ease;
   pointer-events: none;
 }
 
@@ -198,7 +198,6 @@ iframe.backgroundWindow {
 #keyboard-frame.hide {
   transform: translateY(100%);
   visibility: hidden;
-  -moz-transition: visibility 0s linear 0.2s, -moz-transform 0.2s ease;
 }
 
 #keyboard-overlay {
