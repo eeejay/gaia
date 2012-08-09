@@ -64,6 +64,11 @@ body {
   display: block;
 }
 
+#screen.locked > #homescreen {
+  -moz-transition: visibility 0s linear 0.8s;
+  visibility: hidden;
+}
+
 #screen.active-statusbar #homescreen {
   top: 40px;
   height: -moz-calc(100% - 40px);
