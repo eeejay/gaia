@@ -1,15 +1,33 @@
 !function() {
 
+const OUTPUT_NOTIFY_PREF = 'accessibility.accessfu.notify_output';
+const ACTIVATE_PREF = 'accessibility.accessfu.activate';
+
 function ScreenReader() {
   Components.utils.import("resource://gre/modules/accessibility/AccessFu.jsm");
   Components.utils.import('resource://gre/modules/Services.jsm');
-
-  Services.obs.addObserver(this, 'accessfu-output', false);
 }
 
 ScreenReader.prototype = {
   toggle: function toggle(enabled) {
-    Services.prefs.setIntPref('accessibility.accessfu.activate', enabled ? 1 : 0);
+    if (enabled) {
+      if (Services.prefs.prefHasUserValue(OUTPUT_NOTIFY_PREF)) {
+        this._previousOutputPref = Services.prefs.getBoolPref(OUTPUT_NOTIFY_PREF);
+      } else {
+        delete this._previousOutputPref;
+      }
+      Services.prefs.setBoolPref(OUTPUT_NOTIFY_PREF, true);
+      Services.obs.addObserver(this, 'accessfu-output', false);
+    } else {
+      if (this._previousOutputPref == undefined) {
+        Services.prefs.clearUserPref(OUTPUT_NOTIFY_PREF);
+      } else if (!this._previousOutputPref){
+        Services.prefs.setBoolPref(OUTPUT_NOTIFY_PREF, false);
+      }
+      Services.obs.removeObserver(this, 'accessfu-output');
+    }
+
+    Services.prefs.setIntPref(ACTIVATE_PREF, enabled ? 1 : 0);
   },
 
   start: function start() {
@@ -30,10 +48,9 @@ ScreenReader.prototype = {
 
         for (var ii in actions) {
           if (actions[ii].method == 'speak') {
-            var li = window.document.createElement('li');
-            li.innerHTML = actions[ii].data;
-            window.document.getElementById('speechlog').appendChild(li);
-            li.scrollIntoView(false);
+            var output = window.document.getElementById('sr-output');
+            var item = output.appendItem(actions[ii].data);
+            output.ensureElementIsVisible(item);
           }
         }
       }

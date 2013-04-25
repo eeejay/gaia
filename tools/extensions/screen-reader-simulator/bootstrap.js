@@ -40,7 +40,7 @@ function startup(data, reason) {
         key: 'A',
         modifiers: 'accel,shift',
         icon: 'chrome://screen-reader-simulator/content/panel/icon.png',
-        url: 'chrome://screen-reader-simulator/content/panel/index.html',
+        url: 'chrome://screen-reader-simulator/content/panel/screen-reader-simulator.xul',
         label: 'Screen Reader',
         tooltip: 'Control the mobile screen reader',
         isTargetSupported: function(target) {
