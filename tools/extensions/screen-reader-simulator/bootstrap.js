@@ -44,7 +44,7 @@ function startup(data, reason) {
       // Register a new devtool panel with various OS controls
       gDevTools.registerTool({
         id: 'screen-reader-controls',
-        key: 'A',
+        key: 'V',
         modifiers: 'accel,shift',
         icon: 'chrome://screen-reader-simulator/content/panel/icon.png',
         url: 'chrome://screen-reader-simulator/content/panel/screen-reader-simulator.xul',
