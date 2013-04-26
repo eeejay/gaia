@@ -22,6 +22,9 @@
                        oncommand="screenReader.toggle(this.checked)"
                        label="&screenReaderEnable;" tabindex="0"/>
         <toolbarspacer/>
+        <toolbaritem>
+          <label value="&screenReaderNavigationLabel;"/>
+        </toolbaritem>
         <hbox class="sr-controls">
           <toolbarbutton class="devtools-toolbarbutton"
                          aria-label="&screenReaderPreviousItem;"
@@ -41,7 +44,7 @@
         </hbox>
         <toolbarspacer/>
         <toolbaritem>
-          <label value="Scroll:"/>
+          <label value="&screenReaderScrollLabel;"/>
         </toolbaritem>
         <hbox class="sr-controls">
           <toolbarbutton class="devtools-toolbarbutton"
