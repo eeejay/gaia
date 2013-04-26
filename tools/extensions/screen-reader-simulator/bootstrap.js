@@ -23,14 +23,21 @@ function debug(data) {
 }
 
 function startup(data, reason) {
-  try {
-    // XXX This code is Firefox only and should not be loaded in b2g-desktop.
-    Services.obs.addObserver(function() {
-      gBrowserWindow = Services.wm.getMostRecentWindow('navigator:browser');
+  function setupWindow() {
+    Services.prefs.setIntPref('accessibility.accessfu.activate', 0);
+    AccessFu.attach(gBrowserWindow);
+  }
 
-      Services.prefs.setIntPref('accessibility.accessfu.activate', 0);
-      AccessFu.attach(gBrowserWindow);
-    }, 'sessionstore-windows-restored', false);
+  try {
+    gBrowserWindow = Services.wm.getMostRecentWindow('navigator:browser');
+    if (gBrowserWindow) {
+      setupWindow();
+    } else {
+      Services.obs.addObserver(function() {
+          gBrowserWindow = Services.wm.getMostRecentWindow('navigator:browser');
+          setupWindow();
+        }, 'sessionstore-windows-restored', false);
+    }
 
     // XXX This code is Firefox only and should not be loaded in b2g-desktop.
     try {
