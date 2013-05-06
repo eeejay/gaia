@@ -30,17 +30,17 @@
                          aria-label="&screenReaderPreviousItem;"
                          tooltiptext="&screenReaderPreviousItem;"
                          oncommand="screenReader.previous('Simple')"
-                         label="&#x29cf;" tabindex="0"/>
+                         id="previous-item" tabindex="0"/>
           <toolbarbutton class="devtools-toolbarbutton"
                          aria-label="&screenReaderActivateItem;"
                          tooltiptext="&screenReaderActivateItem;"
                          oncommand="screenReader.activate()"
-                         label="&#x229a;" tabindex="0"/>
+                         id="activate-item" tabindex="0"/>
           <toolbarbutton class="devtools-toolbarbutton"
                          aria-label="&screenReaderNextItem;"
                          tooltiptext="&screenReaderNextItem;"
                          oncommand="screenReader.next('Simple')"
-                         label="&#x29d0;" tabindex="0"/>
+                         id="next-item" tabindex="0"/>
         </hbox>
         <toolbarspacer/>
         <toolbaritem>
@@ -51,12 +51,12 @@
                          aria-label="&screenReaderScrollLeft;"
                          tooltiptext="&screenReaderScrollLeft;"
                          onclick="screenReader.scrollLeft()"
-                         label="&#x21e6;" tabindex="0"/>
+                         id="scroll-left" tabindex="0"/>
           <toolbarbutton class="devtools-toolbarbutton"
                          aria-label="&screenReaderScrollRight;"
                          tooltiptext="&screenReaderScrollRight;"
                          onclick="screenReader.scrollRight()"
-                         label="&#x21e8;" tabindex="0"/>
+                         id="scroll-right" tabindex="0"/>
         </hbox>
           <toolbarseparator/>
         <hbox class="sr-controls">
@@ -64,12 +64,12 @@
                          aria-label="&screenReaderScrollUp;"
                          tooltiptext="&screenReaderScrollUp;"
                          onclick="screenReader.scrollUp()"
-                         label="&#x21e7;" tabindex="0"/>
+                         id="scroll-up" tabindex="0"/>
           <toolbarbutton class="devtools-toolbarbutton"
                          aria-label="&screenReaderScrollDown;"
                          tooltiptext="&screenReaderScrollDown;"
                          onclick="screenReader.scrollDown()"
-                         label="&#x21e9;" tabindex="0"/>
+                         id="scroll-down" tabindex="0"/>
         </hbox>
       </toolbar>
       <richlistbox id="sr-output" orient="vertical" flex="1"

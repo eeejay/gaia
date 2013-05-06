@@ -28,3 +28,31 @@
   margin: 0;
   font-size: 0.9em;
 }
+
+#previous-item {
+  list-style-image: url("control-item-left.png");
+}
+
+#activate-item {
+  list-style-image: url("control-activate.png");
+}
+
+#next-item {
+  list-style-image: url("control-item-right.png");
+}
+
+#scroll-left {
+  list-style-image: url("control-scroll-left.png");
+}
+
+#scroll-up {
+  list-style-image: url("control-scroll-up.png");
+}
+
+#scroll-right {
+  list-style-image: url("control-scroll-right.png");
+}
+
+#scroll-down {
+  list-style-image: url("control-scroll-down.png");
+}
