@@ -10,6 +10,8 @@ function ScreenReader() {
 
 ScreenReader.prototype = {
   toggle: function toggle(enabled) {
+    Services.prefs.setIntPref(ACTIVATE_PREF, enabled ? 1 : 0);
+
     if (enabled) {
       if (Services.prefs.prefHasUserValue(OUTPUT_NOTIFY_PREF)) {
         this._previousOutputPref = Services.prefs.getBoolPref(OUTPUT_NOTIFY_PREF);
@@ -26,8 +28,6 @@ ScreenReader.prototype = {
       }
       Services.obs.removeObserver(this, 'accessfu-output');
     }
-
-    Services.prefs.setIntPref(ACTIVATE_PREF, enabled ? 1 : 0);
   },
 
   start: function start() {
