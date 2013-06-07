@@ -13,6 +13,7 @@ requireApp('homescreen/test/unit/mock_configurator.js');
 requireApp('homescreen/test/unit/mock_hidden_apps.js');
 requireApp('homescreen/test/unit/mock_manifest_helper.js');
 requireApp('homescreen/test/unit/mock_icon_retriever.js');
+requireApp('homescreen/test/unit/mock_settings_listener.js');
 
 requireApp('homescreen/js/grid.js');
 
@@ -28,7 +29,8 @@ var mocksHelperForGrid = new MocksHelper([
   'Configurator',
   'HIDDEN_APPS',
   'ManifestHelper',
-  'getDefaultIcon'
+  'getDefaultIcon',
+  'SettingsListener'
 ]);
 
 mocksHelperForGrid.init();

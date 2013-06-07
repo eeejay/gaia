@@ -16,7 +16,6 @@ var PaginationBar = (function() {
       scroller = (typeof element == 'object') ?
           element : document.querySelector(element);
       style = scroller.style;
-      scroller.addEventListener('keypress', this);
     },
 
     /*
@@ -36,8 +35,6 @@ var PaginationBar = (function() {
      * @param {int} total number of pages
      */
     update: function pb_update(current, total) {
-      scroller.setAttribute('aria-valuenow', current);
-      scroller.setAttribute('aria-valuemax', total - 1);
       if (total && previousTotal !== total) {
         style.width = (100 / total) + '%';
         // Force a reflow otherwise the pagination bar is not resized after
@@ -47,20 +44,6 @@ var PaginationBar = (function() {
       }
 
       style.MozTransform = 'translateX(' + current * dir + '%)';
-    },
-
-    handleEvent: function pb_handleEvent(evt) {
-      if (evt.type != 'keypress' || !evt.ctrlKey)
-        return;
-
-      switch (evt.keyCode) {
-        case evt.DOM_VK_RIGHT:
-          GridManager.goToNextPage();
-          break;
-        case evt.DOM_VK_LEFT:
-          GridManager.goToPreviousPage();
-          break;
-      }
     }
   };
 }());

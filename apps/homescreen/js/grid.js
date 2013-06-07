@@ -372,6 +372,25 @@ var GridManager = (function() {
         }
 
         break;
+
+      case 'scrollrequest':
+        // Inspired by the 'scrollrequest' IndieUI event for accessibility.
+        // This allows changing pages through automation or alternative input.
+        // https://dvcs.w3.org/hg/IndieUI/raw-file/tip/src/indie-ui-events.html
+        var deltaX = evt.detail.deltaX || 0;
+        if (Math.abs(deltaX) <= swipeThreshold) {
+          return;
+        }
+        if (deltaX > 0 && currentPage < pages.length - 1) {
+          GridManager.goToNextPage();
+        } else if (deltaX < 0 && currentPage > 0) {
+          GridManager.goToPreviousPage();
+        } else {
+          return;
+        }
+        evt.stopPropagation();
+        evt.preventDefault();
+        break;
     }
   }
 
@@ -484,8 +503,8 @@ var GridManager = (function() {
     current.MozTransition = '';
     current.MozTransform = 'translateX(0)';
 
-    delete fromPage.container.dataset.currentPage;
-    toPage.container.dataset.currentPage = 'true';
+    fromPage.container.dataset.currentPage = false;
+    toPage.container.dataset.currentPage = true;
 
     togglePagesVisibility(index - 1, index + 1);
 
@@ -859,6 +878,16 @@ var GridManager = (function() {
 
     container = document.querySelector(selector);
     container.addEventListener('contextmenu', handleEvent);
+
+    SettingsListener.observe('accessibility.screenreader', false,
+                             function(value) {
+      if (value) {
+        container.addEventListener('scrollrequest', handleEvent);
+      } else {
+        container.removeEventListener('scrollrequest', handleEvent);
+      }
+    });
+
     ensurePanning();
 
     limits.left = container.offsetWidth * 0.05;
