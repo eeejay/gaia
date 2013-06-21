@@ -768,6 +768,12 @@ var WindowManager = (function() {
 
       var iframe = app.iframe;
 
+      var oldApp = runningApps[currentApp];
+      if (oldApp) {
+        oldApp.iframe.setAttribute('aria-hidden', 'true');
+      }
+      iframe.removeAttribute('aria-hidden')
+
       // unloaded means that the app is cold booting
       // if it is, we're going to listen for Browser API's loadend event
       // which indicates that the iframe's document load is complete
