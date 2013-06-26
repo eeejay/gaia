@@ -10,6 +10,7 @@ var GridManager = (function() {
   var SCALE_RATIO = window.innerWidth / BASE_WIDTH;
   var AVAILABLE_SPACE = DEVICE_HEIGHT - (BASE_HEIGHT * SCALE_RATIO);
   var OPACITY_STEPS = 40; // opacity steps between [0,1]
+  var MOZ_SOURCE_UNKNOWN = 0;
 
   // Check if there is space for another row of icons
   if (AVAILABLE_SPACE > BASE_HEIGHT / 5) {
@@ -347,6 +348,13 @@ var GridManager = (function() {
         window.removeEventListener(touchend, handleEvent);
 
         break;
+
+      case 'click':
+        // Scripted clicks have an input source of 'unknown'.
+        // The accessibility layer uses scripted clicks for activating icons.
+        if (evt.mozInputSource != MOZ_SOURCE_UNKNOWN) {
+          break;
+        }
 
       case touchend:
         releaseEvents();
@@ -878,6 +886,7 @@ var GridManager = (function() {
 
     container = document.querySelector(selector);
     container.addEventListener('contextmenu', handleEvent);
+    container.addEventListener('click', handleEvent);
 
     SettingsListener.observe('accessibility.screenreader', false,
                              function(value) {

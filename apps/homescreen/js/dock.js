@@ -19,6 +19,8 @@ var DockManager = (function() {
   var touchmove = isTouch ? 'touchmove' : 'mousemove';
   var touchend = isTouch ? 'touchend' : 'mouseup';
 
+  var MOZ_SOURCE_UNKNOWN = 0;
+
   var getX = (function getXWrapper() {
     return isTouch ? function(e) { return e.touches[0].pageX } :
                      function(e) { return e.pageX };
@@ -87,6 +89,13 @@ var DockManager = (function() {
 
         dock.moveBy(initialOffsetLeft + deltaX);
         break;
+
+      case 'click':
+        // Scripted clicks have an input source of 'unknown'.
+        // The accessibility layer uses scripted clicks for activating icons.
+        if (evt.mozInputSource != MOZ_SOURCE_UNKNOWN) {
+          break;
+        }
 
       case touchend:
         releaseEvents();
@@ -223,6 +232,7 @@ var DockManager = (function() {
       tapThreshold = pTapThreshold;
       container = containerEl;
       container.addEventListener(touchstart, handleEvent);
+      container.addEventListener('click', handleEvent);
       dock = this.page = page;
 
       var numIcons = dock.getNumIcons();
