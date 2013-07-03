@@ -29,7 +29,8 @@ MockPage.prototype = {
     MockPage.mMoveByArg = value;
   },
 
-  tap: function mp_tap() {
+  tap: function mp_tap(icon) {
+    icon.setAttribute('tapped', true);
   }
 };
 

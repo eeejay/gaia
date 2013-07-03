@@ -7,9 +7,7 @@ suite('pagbar.js >', function() {
   var scroller;
 
   suiteSetup(function() {
-    var markup = '<div class="paginationScroller" role="slider" ' +
-                       'aria-valuemin="0" aria-valuenow="0" ' +
-                       'aria-valuemax="0" aria-controls="icongrid"></div>';
+    var markup = '<div class="paginationScroller" role="slider"></div>';
 
     scroller = document.createElement('header');
     scroller.id = 'paginationBar';
@@ -29,24 +27,18 @@ suite('pagbar.js >', function() {
 
     test('Current page index: 1, total pages: 5 >', function() {
       PaginationBar.update(1, 5);
-      assert.equal(scroller.getAttribute('aria-valuenow'), '1');
-      assert.equal(scroller.getAttribute('aria-valuemax'), '4');
 
       assert.equal('translateX(100%)', scroller.style.MozTransform);
     });
 
     test('Current page index: 3, total pages: 5 >', function() {
       PaginationBar.update(3, 5);
-      assert.equal(scroller.getAttribute('aria-valuenow'), '3');
-      assert.equal(scroller.getAttribute('aria-valuemax'), '4');
 
       assert.equal('translateX(300%)', scroller.style.MozTransform);
     });
 
     test('Keeping the position in the grid >', function() {
       PaginationBar.update(3, 5);
-      assert.equal(scroller.getAttribute('aria-valuenow'), '3');
-      assert.equal(scroller.getAttribute('aria-valuemax'), '4');
 
       // The bar should be in the same position
       assert.equal('translateX(300%)', scroller.style.MozTransform);
@@ -58,8 +50,6 @@ suite('pagbar.js >', function() {
 
       // Added a new page to the homescreen
       PaginationBar.update(3, 6);
-      assert.equal(scroller.getAttribute('aria-valuenow'), '3');
-      assert.equal(scroller.getAttribute('aria-valuemax'), '5');
 
       assert.equal('translateX(300%)', scroller.style.MozTransform);
 
@@ -73,8 +63,6 @@ suite('pagbar.js >', function() {
 
       // We remove three pages
       PaginationBar.update(2, 3);
-      assert.equal(scroller.getAttribute('aria-valuenow'), '2');
-      assert.equal(scroller.getAttribute('aria-valuemax'), '2');
 
       // The bar was translated
       assert.equal('translateX(200%)', scroller.style.MozTransform);

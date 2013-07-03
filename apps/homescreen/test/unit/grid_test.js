@@ -40,7 +40,7 @@ suite('grid.js >', function() {
   var SWIPE_THRESHOLD = 0.5;
   var SAVE_STATE_WAIT_TIMEOUT = 200;
 
-  var wrapperNode, containerNode;
+  var wrapperNode, containerNode, iconNode;
   var realMozApps;
 
   var mocksHelper = mocksHelperForGrid;
@@ -89,7 +89,15 @@ suite('grid.js >', function() {
 
     var fakeMarkup =
       '<div id="icongrid" class="apps" role="main">' +
-        '<div id="landing-page" data-current-page="true">' +
+        '<div class="page" id="landing-page" data-current-page="true"></div>' +
+        '<div class="page" id="page1">' +
+          '<ol>' +
+            '<li id="appicon" role="button" data-is-icon="true" class="icon">' +
+              '<div><img height="64" width="64">' +
+                '<span class="labelWrapper"><span>Camera</span></span>' +
+              '</div>' +
+            '</li>' +
+          '</ol>' +
         '</div>' +
       '</div>' +
       '<div class="dockWrapper"></div>' +
@@ -100,6 +108,7 @@ suite('grid.js >', function() {
     document.body.appendChild(wrapperNode);
 
     containerNode = document.getElementById('icongrid');
+    iconNode = document.getElementById('appicon');
 
     var options = {
       gridSelector: '.apps',
@@ -162,7 +171,7 @@ suite('grid.js >', function() {
         evt.initMouseEvent(type, true, true, window,
           0, coords.x, coords.y, coords.x, coords.y,
           false, false, false, false, 0, null);
-        containerNode.dispatchEvent(evt);
+        node.dispatchEvent(evt);
       }
 
       test('should be able to pan', function() {
@@ -189,6 +198,21 @@ suite('grid.js >', function() {
         assert.include(currentPage.style.MozTransform, 'translateX');
         sendTouchEvent('touchend', containerNode, move);
         sendMouseEvent('mouseup', containerNode, move);
+      });
+
+      test('should be able to click on icon', function() {
+        this.sinon.useFakeTimers();
+
+        var rect = iconNode.getBoundingClientRect();
+        var coords = {
+          x: rect.left + rect.width / 2,
+          y: rect.top + rect.height / 2
+        };
+
+        sendMouseEvent('click', iconNode, coords);
+        this.sinon.clock.tick();
+        assert.ok(!!iconNode.getAttribute('tapped'));
+        iconNode.removeAttribute('tapped');
       });
     });
   }
