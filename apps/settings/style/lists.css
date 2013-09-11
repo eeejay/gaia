@@ -143,9 +143,9 @@ ul li > label.pack-switch {
   height: 100%;
 }
 
-ul li > label.pack-checkbox > span,
-ul li > label.pack-radio > span,
-ul li > label.pack-switch > input + span {
+ul li > label.pack-checkbox > span:after,
+ul li > label.pack-radio > span:after,
+ul li > label.pack-switch > input + span:after {
   left: auto;
   right: 0;
 }
@@ -475,9 +475,9 @@ html[dir="rtl"] ul li a[role="button"] {
   right: 3rem;
 }
 
-html[dir="rtl"] ul li > label.pack-checkbox > span,
-html[dir="rtl"] ul li > label.pack-radio > span,
-html[dir="rtl"] ul li > label.pack-switch > input + span {
+html[dir="rtl"] ul li > label.pack-checkbox > span:after,
+html[dir="rtl"] ul li > label.pack-radio > span:after,
+html[dir="rtl"] ul li > label.pack-switch > input + span:after {
   left: 9rem; /* XXX we use "right: 3rem" for LTR layouts... */
   right: inherit;
 }
