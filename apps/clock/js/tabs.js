@@ -28,9 +28,9 @@ Tabs.prototype.handleEvent = function tabsHandleEvent(event) {
   this.currentIndex = index;
   this.links.forEach(function toggleLinks(link, linkIndex) {
     if (linkIndex === index) {
-      link.parentNode.setAttribute('aria-selected', 'true');
+      link.setAttribute('aria-selected', 'true');
     } else {
-      link.parentNode.removeAttribute('aria-selected');
+      link.removeAttribute('aria-selected');
     }
   });
   this.emit('selected', {
