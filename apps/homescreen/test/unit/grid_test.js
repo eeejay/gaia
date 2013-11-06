@@ -98,7 +98,7 @@ suite('grid.js >', function() {
 
     var fakeMarkup =
       '<div id="icongrid" class="apps" role="main">' +
-        '<div id="landing-page" data-current-page="true">' +
+        '<div id="landing-page">' +
         '</div>' +
       '</div>' +
       '<div class="dockWrapper"></div>' +
